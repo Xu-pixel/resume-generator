@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
   width: 230mm;
   height: 100%;
@@ -18,12 +17,8 @@ body {
 .main-page {
   width: 210mm;
   min-height: 297mm;
-  margin: 10mm;
   background: white;
   box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
-
-  position: absolute;
-  right: 0;
 }
 .sub-page {
   padding: 1cm;

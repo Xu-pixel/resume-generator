@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed h-screen w-128 left-0 print:hidden overflow-auto scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin">
+    class="fixed h-screen xl:w-128 w-96 left-0 print:hidden overflow-auto scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin">
     <div class="flex items-center w-full gap-2 sticky top-0 bg-white px-4 py-2 z-10 rounded-lg shadow-md">
       <select v-model="items.lang">
         <option v-for="{ value, display } in items.languages" :value="value">
@@ -30,7 +30,7 @@
 
     <!-- 基本信息 -->
 
-    <div class="grid grid-cols-2 p-4 items-center">
+    <div class="grid grid-cols-1 p-4 items-center xl:grid-cols-2">
       name: <input v-model="items.getTitle.name" class="hover:border-green-700 inputBox">
       mail: <input v-model="items.getTitle.mail" class="hover:border-green-700 inputBox">
       phone: <input v-model="items.getTitle.phone" class="hover:border-green-700 inputBox">
@@ -58,7 +58,7 @@
                   <template #header>
                     <input v-model="v.name" class=" outline-none rounded-lg hover:border-green-700 border px-2">
                   </template>
-                  <div class="grid grid-cols-2 items-center ">
+                  <div class="grid xl:grid-cols-2 items-center grid-cols-1">
                     period: <input v-model="v.period" class="hover:border-green-700 inputBox">
                     location: <input v-model="v.location" class="hover:border-green-700 inputBox">
                     intro: <textarea v-model="v.intro" class="hover:border-green-700 inputBox" />
@@ -71,7 +71,7 @@
                   <!-- details -->
                   <div v-for="( detail, detailId ) in v.details"
                     class="relative group-grandson hover:bg-slate-200 p-2 rounded-lg w-full">
-                    <div class="grid grid-cols-2 items-center">
+                    <div class="grid xl:grid-cols-2 items-center grid-cols-1">
                       bold:<input v-model="detail.bold" class="hover:border-green-700 inputBox">
                       text: <input v-model="detail.text" class="hover:border-green-700 inputBox">
                     </div>

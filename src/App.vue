@@ -64,9 +64,8 @@ const itemsStore = useItemsStore()
 
 <template>
 <n-message-provider>
-
   <Panel></Panel>
-  <div class="main-page relative">
+  <div class="main-page scale-75 xl:scale-100 absolute xl:right-0 xl:top-0 m-4 -right-20 -top-28">
     <div class="sub-page relative" :class="itemsStore.lang == 'zh' ? 'font-sans' : 'font-serif'">
       <!-- title -->
       <Between class="text-xl">
