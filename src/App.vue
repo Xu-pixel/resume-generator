@@ -1,64 +1,20 @@
 <script setup>
-import { reactive, ref } from 'vue';
+import { computed } from 'vue';
 import Between from './layouts/Between.vue';
 import { Icon } from '@iconify/vue'
 import Block from './layouts/Block.vue'
 import Experience from './components/Experience.vue'
-import List from './components/List.vue';
-import * as string from 'lodash/string'
 import Panel from './components/Panel.vue'
 import { useItemsStore } from './stores/ItemsStore';
 import { NMessageProvider } from 'naive-ui';
+import { useTitle } from '@vueuse/core'
 
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-
-const ProgramLang = reactive({
-  en: {
-    title: 'PROGRAM SKILLS',
-    languages: 'Languages',
-    framework: 'Framework',
-    tool:'Tools'
-  },
-  zh: {
-    title: '编程相关',
-    languages: '编程语言',
-    framework: '框架 / 引擎',
-    tool:'工具'
-  },
-  langs: [
-    'JavaScript',
-    'Python',
-    'C++',
-    'TypeScript',
-    '...'
-  ],
-  frameworks: [
-    'Vue3',
-    'Django',
-    'Cocos Creator',
-    'Node',
-    'Deno',
-    'TailWind',
-    '...'
-  ],
-  tools:[
-    'VSCode',
-    'Git',
-    'Vite'
-  ]
-})
-
-const Course = reactive({
-  en:{
-    title:'Featured Courses'
-  },
-  zh:{
-    title:'专业课程'
-  }
-})
 
 const itemsStore = useItemsStore()
+
+useTitle(computed(() => {
+  return `Resume Generator For ${itemsStore.getTitle.name}`
+})) 
 
 </script>
 

@@ -1,31 +1,24 @@
 <template>
   <div
     class="fixed h-screen xl:w-128 w-96 left-0 print:hidden overflow-auto scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-thin">
-    <div class="flex items-center w-full gap-2 sticky top-0 bg-white px-4 py-2 z-10 rounded-lg shadow-md">
+    <div class="flex items-center w-full gap-4 sticky top-0 bg-white px-4 py-2 z-10 rounded-lg shadow-md">
       <select v-model="items.lang">
         <option v-for="{ value, display } in items.languages" :value="value">
           {{ display }}
         </option>
       </select>
-      <NTooltip trigger="hover" class="print:hidden">
-        <template #trigger>
-          <Icon @click="printPDF" icon="mdi:printer" class="w-6 h-6 cursor-pointer text-slate-400 outline-none"></Icon>
-        </template>
+      <Tool @callback="printPDF" icon="mdi:printer">
         打印
-      </NTooltip>
-      <NTooltip trigger="hover">
-        <template #trigger>
-          <Icon @click="save" icon="mdi:content-save" class="w-6 h-6 cursor-pointer text-slate-400 outline-none"></Icon>
-        </template>
+      </Tool>
+      <Tool @callback="save" icon="mdi:content-save">
         保存
-      </NTooltip>
-      <NTooltip trigger="hover">
-        <template #trigger>
-          <Icon @click="items.$reset()" icon="mdi:restart-alert"
-            class="w-6 h-6 cursor-pointer text-slate-400 outline-none"></Icon>
-        </template>
+      </Tool>
+      <Tool @callback="items.$reset()" icon="mdi:restart-alert">
         重置
-      </NTooltip>
+      </Tool>
+      <Tool @callback="restore" icon="mdi:restore">
+        撤销
+      </Tool>
     </div>
 
     <!-- 基本信息 -->
@@ -115,13 +108,16 @@
 
 <script setup>
 import { useItemsStore } from '../stores/ItemsStore.js';
-import { NCollapse, NCollapseItem, useMessage, NTooltip } from 'naive-ui'
+import { NCollapse, NCollapseItem, useMessage } from 'naive-ui'
 import { Icon } from '@iconify/vue';
+import Tool from './Tool.vue';
 
 const items = useItemsStore()
 const message = useMessage()
 const printPDF = window.print
-items.$patch(JSON.parse(localStorage.getItem('items')))
+const history = []
+
+items.$state = JSON.parse(localStorage.getItem('items'))
 
 const save = () => {
   try {
@@ -132,6 +128,22 @@ const save = () => {
   message.success('本地保存成功')
 }
 
+
+
+items.$onAction(({
+  name, // action 的名字
+  store, // store 实例
+  args, // 调用这个 action 的参数
+  after, // 在这个 action 执行完毕之后，执行这个函数
+  onError, // 在这个 action 抛出异常的时候，执行这个函数
+}) => {
+  history.push(JSON.stringify(store.$state))
+})
+
+const restore = () => {
+  if(history.length === 0)message.info('之前没有操作哦')
+  else items.$state = JSON.parse(history.pop())
+}
 </script>
 
 
