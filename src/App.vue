@@ -13,7 +13,7 @@ import { useTitle } from '@vueuse/core'
 const itemsStore = useItemsStore()
 
 useTitle(computed(() => {
-  return `Resume Generator For ${itemsStore.getTitle.name}`
+  return `${itemsStore.getTitle.name}'s Resume Generator`
 })) 
 
 </script>
@@ -33,7 +33,7 @@ useTitle(computed(() => {
       </Between>
 
       <Between>
-        <a href="https://gitee.com/Xu-pixel" class="text-green-700">{{itemsStore.page}}</a>
+        <a href="https://gitee.com/Xu-pixel" :style="{color:itemsStore.color}">{{itemsStore.page}}</a>
         <div class="flex items-center">
           <Icon icon="mdi:phone" />{{ itemsStore.getTitle.phone }}:{{itemsStore.phoneNumber}}
         </div>

@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <div class="border-b text-lg mt-3 border-green-700 pb-1 mb-2">
+        <div class="border-b text-lg mt-3  pb-1 mb-2" :style="{borderBottomColor:itemsStore.color}">
             {{ title }}
         </div>
         <div>
@@ -13,6 +13,10 @@
 
 
 <script setup>
+import { useItemsStore } from '../stores/ItemsStore.js';
+
+
+const itemsStore = useItemsStore()
 defineProps({
     title: String
 })

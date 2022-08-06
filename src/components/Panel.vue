@@ -16,25 +16,32 @@
       <Tool @callback="items.$reset()" icon="mdi:restart-alert">
         重置
       </Tool>
-      <Tool @callback="restore" icon="mdi:restore">
+      <Tool @callback="undo" icon="mdi:undo">
         撤销
       </Tool>
+      <Tool @callback="redo" icon="mdi:redo">
+        重做
+      </Tool>
+      <Tool @callback="popInformation" icon="mdi:information">
+        关于
+      </Tool>
+      <n-color-picker size="small" v-model:value="items.color" class="w-40" />
     </div>
 
-    <!-- 基本信息 -->
-
-    <div class="grid grid-cols-1 p-4 items-center xl:grid-cols-2">
-      name: <input v-model="items.getTitle.name" class="hover:border-green-700 inputBox">
-      mail: <input v-model="items.getTitle.mail" class="hover:border-green-700 inputBox">
-      phone: <input v-model="items.getTitle.phone" class="hover:border-green-700 inputBox">
-
-      phoneNumber: <input v-model="items.phoneNumber" class="hover:border-green-700 inputBox">
-      page: <input v-model="items.page" class="hover:border-green-700 inputBox">
-      emailNumber: <input v-model="items.emailNumber" class="hover:border-green-700 inputBox">
-    </div>
-
-
+    
     <NCollapse class="p-2 text-lg select-none">
+      <!-- 基本信息 -->
+      <NCollapseItem class="p-2 pb-4" title="基本信息">
+        <div class="grid grid-cols-1 p-4 items-center xl:grid-cols-2">
+          name: <input v-model="items.getTitle.name" class="hover:border-green-700 inputBox">
+          mail: <input v-model="items.getTitle.mail" class="hover:border-green-700 inputBox">
+          phone: <input v-model="items.getTitle.phone" class="hover:border-green-700 inputBox">
+
+          phoneNumber: <input v-model="items.phoneNumber" class="hover:border-green-700 inputBox">
+          page: <input v-model="items.page" class="hover:border-green-700 inputBox">
+          emailNumber: <input v-model="items.emailNumber" class="hover:border-green-700 inputBox">
+        </div>
+      </NCollapseItem>
       <TransitionGroup name="list">
         <div v-for="(content, i) in items.getContents" :key="i"
           class="p-2 pb-4 flex rounded-lg group relative hover:bg-slate-50 bg-white flex-col">
@@ -108,7 +115,7 @@
 
 <script setup>
 import { useItemsStore } from '../stores/ItemsStore.js';
-import { NCollapse, NCollapseItem, useMessage } from 'naive-ui'
+import { NCollapse, NCollapseItem, useMessage, NColorPicker } from 'naive-ui'
 import { Icon } from '@iconify/vue';
 import Tool from './Tool.vue';
 
@@ -116,6 +123,7 @@ const items = useItemsStore()
 const message = useMessage()
 const printPDF = window.print
 const history = []
+const rehistory = []
 
 items.$state = JSON.parse(localStorage.getItem('items'))
 
@@ -140,9 +148,26 @@ items.$onAction(({
   history.push(JSON.stringify(store.$state))
 })
 
-const restore = () => {
-  if(history.length === 0)message.info('之前没有操作哦')
-  else items.$state = JSON.parse(history.pop())
+const undo = () => {
+  console.log(history)
+  if (history.length === 0) message.info('之前没有操作哦')
+  else {
+    rehistory.push(JSON.stringify(items.$state))
+    items.$state = JSON.parse(history.pop())
+  }
+}
+
+const redo = () => {
+  console.log(rehistory)
+  if (rehistory.length === 0) message.info('没有撤销过操作哦')
+  else {
+    history.push(JSON.stringify(items.$state))
+    items.$state = JSON.parse(rehistory.pop())
+  }
+}
+
+const popInformation = () => {
+  alert('注意中英文是相互关联的，删除中文模板的某个板块，英文的也会消失！\nauthor：xu-pixel\n注意打印机选项:\n打印机选择：另存为PDF\n更多设置勾选 背景图形')
 }
 </script>
 

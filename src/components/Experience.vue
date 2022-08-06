@@ -1,9 +1,9 @@
 <template>
     <div class="flex items-center w-full" v-if="isComplete">
-        <div class="w-2 h-2 mr-3 bg-green-700 rounded-full"></div>
+        <div class="w-2 h-2 mr-3 rounded-full" :style="{background:items.color}"></div>
         <div class="w-full">
             <Between>
-                <a class=" font-bold text-green-700" :href="link">
+                <a class=" font-bold" :href="link" :style="{color:items.color}">
                     {{ name }}
                 </a>
                 <div>
@@ -30,7 +30,10 @@
 <script setup>
 import { computed, ref, watch, watchEffect } from 'vue';
 import Between from '../layouts/Between.vue';
+import { useItemsStore } from '../stores/ItemsStore';
 import List from './List.vue'
+
+const items = useItemsStore()
 
 const props = defineProps({
     name: String,

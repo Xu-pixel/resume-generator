@@ -4,6 +4,7 @@ export const useItemsStore = defineStore("ItemsStore", {
   state: () => {
     return {
       lang: "zh",
+      color:'rgb(21,128,61)',
       languages: [{ value: 'zh', display: '中文' }, { value: 'en', display: 'English' }],
       phoneNumber: '152 0606 9205',
       page: 'https://gitee.com/Xu-pixel',
