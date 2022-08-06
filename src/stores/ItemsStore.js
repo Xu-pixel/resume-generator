@@ -6,19 +6,19 @@ export const useItemsStore = defineStore("ItemsStore", {
       lang: "zh",
       color:'rgb(21,128,61)',
       languages: [{ value: 'zh', display: '中文' }, { value: 'en', display: 'English' }],
-      phoneNumber: '152 0606 9205',
+      phoneNumber: '155 5555 5205',
       page: 'https://gitee.com/Xu-pixel',
-      emailNumber: 'naomi1299@163.com',
+      emailNumber: 'pixel-xu@cau.edu.cn',
       title: [
         {
           lang: 'zh',
-          name: '徐国威',
+          name: '徐柱柱',
           mail: '邮箱',
           phone: '手机'
         },
         {
           lang: 'en',
-          name: 'GuoWei Xu',
+          name: 'Pixel Xu',
           mail: 'Email',
           phone: 'Mobile'
         }
