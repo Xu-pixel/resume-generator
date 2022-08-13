@@ -167,7 +167,7 @@ const redo = () => {
 }
 
 const popInformation = () => {
-  alert('注意中英文是相互关联的，删除中文模板的某个板块，英文的也会消失！\nauthor：xu-pixel\n注意打印机选项:\n打印机选择：另存为PDF\n更多设置勾选 背景图形')
+  alert('注意中英文是相互关联的，删除中文模板的某个板块，英文的也会消失！\nauthor：xu-pixel\n注意打印机选项:\n打印机选择：另存为PDF\n更多设置勾选 背景图形\n有什么建议可以联系我哦\n 微信:Naomi1299')
 }
 </script>
 
