@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="flex" v-for="detail in details">
-        <div class="w-5 h-7" v-if="isComplete"></div>
+        <div class="w-5" v-if="isComplete"></div>
         <List  :text="detail.text">{{ detail.bold }}</List>
     </div>
 </template>
